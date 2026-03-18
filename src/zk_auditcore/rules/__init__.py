@@ -1,0 +1,1 @@
+"""Static rule engine package."""

@@ -1,0 +1,45 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "zk-auditcore"
+version = "0.1.0"
+description = "Deterministic, coverage-aware, exploit-driven ZK auditing pipeline MVP."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+authors = [{ name = "ZKAuditCore Team" }]
+dependencies = [
+  "typer>=0.12.3",
+  "pydantic>=2.8.2",
+  "z3-solver>=4.13.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.2",
+  "ruff>=0.6.1",
+  "mypy>=1.11.1",
+]
+
+[project.scripts]
+zk-auditcore = "zk_auditcore.cli.main:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/zk_auditcore"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["zk_auditcore"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
