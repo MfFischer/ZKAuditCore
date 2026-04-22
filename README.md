@@ -46,6 +46,42 @@ ZKAuditCore is a CLI-first security analysis pipeline that generates reproducibl
 4. Verify attestation manifest:
    - `zk-auditcore verify --out-dir artifacts`
 
+## Demo In One Command (PowerShell)
+
+Use the included script to run the full demo flow on the sample circuit:
+
+- `powershell -ExecutionPolicy Bypass -File scripts/demo.ps1`
+
+This command:
+
+- Runs analysis on a known vulnerable circuit
+- Prints findings count and coverage summary
+- Verifies attestation manifest
+- Confirms required output artifacts
+
+## Simple Launch Checklist
+
+Before showing to a pilot user or partner, ensure all of the following are true:
+
+- CLI works on at least 1 circuit (`analyze` succeeds)
+- Output includes JSON and a readable report (`findings.json`, `coverage.json`, `report.html`)
+- Coverage percentage is clearly visible in terminal and report
+- Output contains at least 1 finding
+- README is clear and runnable by a new user
+- Example circuit is included in the repository
+
+## Expected Demo Output
+
+Typical successful run includes:
+
+- `Findings: <n>`
+- `Coverage verified: <x>%`
+- `Attestation manifest verified.`
+
+The HTML report prominently highlights:
+
+- `We analyzed <x>% of your constraints.`
+
 ## Output Artifacts
 
 An analysis run emits:

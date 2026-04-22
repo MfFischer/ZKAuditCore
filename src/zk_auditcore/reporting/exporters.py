@@ -21,6 +21,7 @@ def export_json(bundle: AnalysisBundle, out_dir: Path) -> None:
 def export_html(bundle: AnalysisBundle, out_dir: Path) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     findings = bundle.findings.findings
+    coverage_pct = bundle.coverage.verified_percent
     rows = "".join(
         [
             "<tr>"
@@ -32,9 +33,34 @@ def export_html(bundle: AnalysisBundle, out_dir: Path) -> None:
     )
     html = f"""<!DOCTYPE html>
 <html>
-  <head><meta charset="utf-8"><title>ZKAuditCore Report</title></head>
+  <head>
+    <meta charset="utf-8">
+    <title>ZKAuditCore Report</title>
+    <style>
+      body {{ font-family: Arial, sans-serif; margin: 32px; color: #111827; }}
+      .hero {{
+        background: #eef2ff;
+        border: 1px solid #c7d2fe;
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 20px;
+      }}
+      .hero h2 {{ margin: 0; font-size: 26px; }}
+      .sub {{ color: #374151; margin-top: 8px; }}
+      table {{ border-collapse: collapse; width: 100%; }}
+      th, td {{ border: 1px solid #d1d5db; padding: 8px; text-align: left; }}
+      th {{ background: #f9fafb; }}
+      pre {{ background: #f9fafb; border: 1px solid #e5e7eb; padding: 12px; border-radius: 8px; }}
+    </style>
+  </head>
   <body>
     <h1>ZKAuditCore MVP Report</h1>
+    <div class="hero">
+      <h2>We analyzed {coverage_pct}% of your constraints.</h2>
+      <div class="sub">
+        Deterministic analysis with evidence-linked findings and reproducible artifacts.
+      </div>
+    </div>
     <h2>Coverage</h2>
     <pre>{json.dumps(bundle.coverage.model_dump(), indent=2, sort_keys=True)}</pre>
     <h2>Findings</h2>

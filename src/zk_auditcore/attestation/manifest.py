@@ -64,6 +64,7 @@ def try_sigstore_sign(manifest_path: Path) -> AttestationResult:
             check=True,
             capture_output=True,
             text=True,
+            timeout=20,
         )
         return AttestationResult(signature_created=True, message="sigstore_signed")
     except Exception:
