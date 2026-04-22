@@ -22,25 +22,37 @@ def export_html(bundle: AnalysisBundle, out_dir: Path) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     findings = bundle.findings.findings
     coverage_pct = bundle.coverage.verified_percent
-    
+
     rows = "".join(
         [
             f"""
             <tr class="finding-row">
                 <td class="font-mono text-sm text-slate-500">{f.rule_id}</td>
-                <td><span class="badge severity-{f.severity.value}">{f.severity.value.upper()}</span></td>
+                <td>
+                    <span class="badge severity-{f.severity.value}">
+                        {f.severity.value.upper()}
+                    </span>
+                </td>
                 <td>
                     <div class="finding-title">{f.title}</div>
                     <div class="finding-desc">{f.description}</div>
                 </td>
                 <td><code class="ref-code">{f.constraint_ref or f.signal_ref or '-'}</code></td>
-                <td><span class="solver-status status-{(f.solver_status.value.lower() if f.solver_status else 'none')}">{f.solver_status.value if f.solver_status else '-'}</span></td>
+                <td>
+                    <span
+                        class="solver-status status-{(
+                            f.solver_status.value.lower() if f.solver_status else 'none'
+                        )}"
+                    >
+                        {f.solver_status.value if f.solver_status else '-'}
+                    </span>
+                </td>
             </tr>
             """
             for f in findings
         ]
     )
-    
+    report_id = "MVP-DEMO"
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +61,10 @@ def export_html(bundle: AnalysisBundle, out_dir: Path) -> None:
     <title>ZKAuditCore | Security Analysis Report</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet"
+    >
     <style>
         :root {{
             --primary: #4f46e5;
@@ -216,10 +231,18 @@ def export_html(bundle: AnalysisBundle, out_dir: Path) -> None:
             text-transform: uppercase;
         }}
 
-        .severity-critical {{ background: #fef2f2; color: var(--critical); border: 1px solid #fee2e2; }}
-        .severity-high {{ background: #fff7ed; color: var(--high); border: 1px solid #ffedd5; }}
-        .severity-medium {{ background: #fffbeb; color: var(--medium); border: 1px solid #fef3c7; }}
-        .severity-low {{ background: #eff6ff; color: var(--low); border: 1px solid #dbeafe; }}
+        .severity-critical {{
+            background: #fef2f2; color: var(--critical); border: 1px solid #fee2e2;
+        }}
+        .severity-high {{
+            background: #fff7ed; color: var(--high); border: 1px solid #ffedd5;
+        }}
+        .severity-medium {{
+            background: #fffbeb; color: var(--medium); border: 1px solid #fef3c7;
+        }}
+        .severity-low {{
+            background: #eff6ff; color: var(--low); border: 1px solid #dbeafe;
+        }}
 
         .finding-title {{ font-weight: 600; font-size: 15px; margin-bottom: 4px; }}
         .finding-desc {{ font-size: 14px; color: var(--text-muted); }}
@@ -266,7 +289,7 @@ def export_html(bundle: AnalysisBundle, out_dir: Path) -> None:
         <header>
             <div class="logo">ZKAuditCore</div>
             <div style="font-size: 14px; font-weight: 500; color: var(--text-muted);">
-                Report ID: {bundle.coverage.stable_hash[:8] if hasattr(bundle.coverage, 'stable_hash') else 'MVP-DEMO'}
+                Report ID: {report_id}
             </div>
         </header>
 
@@ -277,7 +300,9 @@ def export_html(bundle: AnalysisBundle, out_dir: Path) -> None:
                 <span class="coverage-label">Constraint Coverage</span>
             </div>
             <p style="margin-top: 24px; color: #cbd5e1; max-width: 600px; font-size: 15px;">
-                Deterministic formal verification of ZK circuit constraints. This report provides a verifiable attestation of the security properties analyzed.
+                Deterministic formal verification of ZK circuit constraints.
+                This report provides a verifiable attestation of the
+                security properties analyzed.
             </p>
         </div>
 
