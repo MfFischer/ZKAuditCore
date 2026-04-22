@@ -1,6 +1,6 @@
 # ZKAuditCore
 
-## Quick Demo (for reviewers)
+## Quick Demo
 
 ```bash
 zk-auditcore analyze fixtures/circuits/vulnerable_sample.json --out-dir artifacts_demo
