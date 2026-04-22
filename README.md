@@ -13,7 +13,7 @@ zk-auditcore verify --out-dir artifacts_demo
 
 What you'll get:
 
-- Coverage headline: `We analyzed X% of your constraints.`
+- Coverage headline: `We analyzed 100.0% of your constraints.`
 - Evidence-linked findings (rule + constraint + solver status)
 - Signed attestation manifest
 
@@ -31,8 +31,8 @@ Artifacts generated:
 ### Example Output (CLI)
 
 ```text
-Findings: 2
-Coverage verified: 64%
+Findings: 6
+Coverage verified: 100.0%
 Attestation manifest verified.
 ```
 
@@ -103,7 +103,7 @@ Typical successful run includes:
 
 The HTML report prominently highlights:
 
-- `We analyzed <x>% of your constraints.`
+- `We analyzed 100.0% of your constraints.`
 
 ## Output Artifacts
 
