@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import cast
 
@@ -53,6 +54,9 @@ def analyze(input_path: Path, out_dir: Path, solver_timeout_ms: int = 2000) -> A
         json.dumps(sign_result.model_dump(mode="json"), indent=2, sort_keys=True),
         encoding="utf-8",
     )
+    require_sigstore = os.getenv("REQUIRE_SIGSTORE", "0") == "1"
+    if require_sigstore and not sign_result.signature_created:
+        raise RuntimeError("Sigstore signing is required but unavailable or failed.")
     return bundle
 
 

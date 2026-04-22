@@ -7,6 +7,8 @@ on:
 jobs:
   checks:
     runs-on: ubuntu-latest
+    env:
+      REQUIRE_SIGSTORE: "1"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,6 +22,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -e .[dev]
+          python -m pip install sigstore
 
       - name: Ruff
         run: ruff check src tests
