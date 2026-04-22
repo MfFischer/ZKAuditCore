@@ -1,63 +1,15 @@
 # ZKAuditCore
 
-## ⚡ Quick Demo (for reviewers)
-
-Run a full deterministic audit on a sample circuit:
+## Quick Demo (for reviewers)
 
 ```bash
-git clone https://github.com/MfFischer/ZKAuditCore
-cd ZKAuditCore
-pip install -e .[dev]
-
 zk-auditcore analyze fixtures/circuits/vulnerable_sample.json --out-dir artifacts_demo
 zk-auditcore verify --out-dir artifacts_demo
 ```
 
-Expected output:
-
-- Coverage report: "We analyzed X% of your constraints"
-- Evidence-linked findings (rule + constraint + solver result)
-- Signed attestation manifest
-
-Artifacts generated:
-
-- `report.html`
-- `coverage.json`
-- `findings.json`
-- `attestation.json`
-
-👉 That's it. No extra text. No fluff.
-
-## 🧠 Why this works
-
-It signals immediately:
-
-- ✅ "This runs"
-- ✅ "This is deterministic"
-- ✅ "This produces audit artifacts"
-
-Most grant repos don't have this, so it stands out instantly.
-
-## 📸 Do you need a screenshot?
-
-### ❌ Not required
-### ✅ But highly recommended
-
-## 🎯 When to include a screenshot
-
-Add one screenshot only if:
-
-- your `report.html` looks clean
-- coverage % is visible
-- findings are structured
-
-## 📍 Where to place it
-
-```md
-### Sample Report Output
-
-![ZKAuditCore Report Screenshot](docs/report_example.png)
-```
+- Coverage headline in report: `We analyzed X% of your constraints.`
+- Evidence-linked findings: rule + constraint + solver status
+- Artifacts: `report.html`, `coverage.json`, `findings.json`, `attestation.json`
 
 Deterministic, coverage-aware, exploit-oriented analysis for zero-knowledge circuits.
 
@@ -104,6 +56,42 @@ ZKAuditCore is a CLI-first security analysis pipeline that generates reproducibl
    - `zk-auditcore analyze fixtures/circuits/vulnerable_sample.json --out-dir artifacts`
 4. Verify attestation manifest:
    - `zk-auditcore verify --out-dir artifacts`
+
+## Demo In One Command (PowerShell)
+
+Use the included script to run the full demo flow on the sample circuit:
+
+- `powershell -ExecutionPolicy Bypass -File scripts/demo.ps1`
+
+This command:
+
+- Runs analysis on a known vulnerable circuit
+- Prints findings count and coverage summary
+- Verifies attestation manifest
+- Confirms required output artifacts
+
+## Simple Launch Checklist
+
+Before showing to a pilot user or partner, ensure all of the following are true:
+
+- CLI works on at least 1 circuit (`analyze` succeeds)
+- Output includes JSON and a readable report (`findings.json`, `coverage.json`, `report.html`)
+- Coverage percentage is clearly visible in terminal and report
+- Output contains at least 1 finding
+- README is clear and runnable by a new user
+- Example circuit is included in the repository
+
+## Expected Demo Output
+
+Typical successful run includes:
+
+- `Findings: <n>`
+- `Coverage verified: <x>%`
+- `Attestation manifest verified.`
+
+The HTML report prominently highlights:
+
+- `We analyzed <x>% of your constraints.`
 
 ## Output Artifacts
 
