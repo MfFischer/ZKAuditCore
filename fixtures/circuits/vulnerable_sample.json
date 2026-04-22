@@ -1,0 +1,30 @@
+{
+  "circuit_name": "vulnerable_sample",
+  "source_ref": "fixtures/circuits/vulnerable_sample.circom",
+  "signals": [
+    { "id": "s1", "name": "input_secret", "is_public": false },
+    { "id": "s2", "name": "nullifier", "is_public": true },
+    { "id": "s3", "name": "orphan_signal", "is_public": false }
+  ],
+  "constraints": [
+    {
+      "id": "c1",
+      "expression": "input_secret == nullifier",
+      "signal_refs": ["s1", "s2"],
+      "is_passthrough": false
+    },
+    {
+      "id": "c2",
+      "expression": "nullifier + 1",
+      "signal_refs": ["s2"],
+      "is_passthrough": false
+    },
+    {
+      "id": "c3",
+      "expression": "public_input_signal",
+      "signal_refs": ["s2"],
+      "is_passthrough": true
+    }
+  ],
+  "components": [{ "id": "cmp_root", "name": "root" }]
+}

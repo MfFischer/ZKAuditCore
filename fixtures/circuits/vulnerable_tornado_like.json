@@ -1,0 +1,22 @@
+{
+  "circuit_name": "vulnerable_tornado_like",
+  "source_ref": "fixtures/circuits/vulnerable_tornado_like.circom",
+  "signals": [
+    { "id": "a1", "name": "note_input", "is_public": false },
+    { "id": "a2", "name": "nullifier", "is_public": true }
+  ],
+  "constraints": [
+    {
+      "id": "a_c1",
+      "expression": "note_input == nullifier",
+      "signal_refs": ["a1", "a2"],
+      "is_passthrough": false
+    },
+    {
+      "id": "a_c2",
+      "expression": "nullifier",
+      "signal_refs": ["a2"],
+      "is_passthrough": false
+    }
+  ]
+}

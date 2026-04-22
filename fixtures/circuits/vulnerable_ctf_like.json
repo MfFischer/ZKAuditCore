@@ -1,0 +1,22 @@
+{
+  "circuit_name": "vulnerable_ctf_like",
+  "source_ref": "fixtures/circuits/vulnerable_ctf_like.circom",
+  "signals": [
+    { "id": "b1", "name": "input_value", "is_public": false },
+    { "id": "b2", "name": "proof_output", "is_public": true }
+  ],
+  "constraints": [
+    {
+      "id": "b_c1",
+      "expression": "input_value",
+      "signal_refs": ["b1"],
+      "is_passthrough": false
+    },
+    {
+      "id": "b_c2",
+      "expression": "input_value == proof_output",
+      "signal_refs": ["b1", "b2"],
+      "is_passthrough": false
+    }
+  ]
+}
